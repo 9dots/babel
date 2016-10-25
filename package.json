@@ -68,5 +68,8 @@
         "auxiliaryCommentBefore": "istanbul ignore next"
       }
     }
+  },
+  "dependencies": {
+    "babel-plugin-transform-mdx": "^0.1.0"
   }
 }

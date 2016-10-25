@@ -1,64 +1,66 @@
-import * as t from "./index";
+"use strict";
 
-export let isReactComponent = t.buildMatchMemberExpression("React.Component");
+exports.__esModule = true;
+exports.isReactComponent = undefined;
+exports.isCompatTag = isCompatTag;
+exports.buildChildren = buildChildren;
 
-export function isCompatTag(tagName?: string): boolean {
+var _index = require("./index");
+
+var t = _interopRequireWildcard(_index);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var isReactComponent = exports.isReactComponent = t.buildMatchMemberExpression("React.Component");
+
+function isCompatTag(tagName) {
   return !!tagName && /^[a-z]|\-/.test(tagName);
 }
 
-function cleanJSXElementLiteralChild(
-  child: { value: string },
-  args: Array<Object>,
-) {
-  let lines = child.value.split(/\r\n|\n|\r/);
+function cleanJSXElementLiteralChild(child, args) {
+  var lines = child.value.split(/\r\n|\n|\r/);
 
-  let lastNonEmptyLine = 0;
+  var lastNonEmptyLine = 0;
 
-  for (let i = 0; i < lines.length; i++) {
+  for (var i = 0; i < lines.length; i++) {
     if (lines[i].match(/[^ \t]/)) {
       lastNonEmptyLine = i;
     }
   }
 
-  let str = "";
+  var str = [];
 
-  for (let i = 0; i < lines.length; i++) {
-    let line = lines[i];
+  for (var _i = 0; _i < lines.length; _i++) {
+    var line = lines[_i];
 
-    let isFirstLine = i === 0;
-    let isLastLine = i === lines.length - 1;
-    let isLastNonEmptyLine = i === lastNonEmptyLine;
+    var isFirstLine = _i === 0;
+    var isLastLine = _i === lines.length - 1;
+    var isLastNonEmptyLine = _i === lastNonEmptyLine;
 
-    // replace rendered whitespace tabs with spaces
-    let trimmedLine = line.replace(/\t/g, " ");
-
-    // trim whitespace touching a newline
     if (!isFirstLine) {
-      trimmedLine = trimmedLine.replace(/^[ ]+/, "");
+      line = line.replace(/^[ ]+/, "");
     }
 
-    // trim whitespace touching an endline
     if (!isLastLine) {
-      trimmedLine = trimmedLine.replace(/[ ]+$/, "");
+      line = line.replace(/[ ]+$/, "");
     }
 
-    if (trimmedLine) {
-      if (!isLastNonEmptyLine) {
-        trimmedLine += " ";
-      }
-
-      str += trimmedLine;
+    if (line) {
+      str.push(line);
     }
   }
-
-  if (str) args.push(t.stringLiteral(str));
+  if (str) {
+    str.forEach((s) => {
+      args.push(t.stringLiteral(s))
+    })
+  }
 }
 
-export function buildChildren(node: Object): Array<Object> {
-  let elems = [];
+function buildChildren(node) {
+  var elems = [];
 
-  for (let i = 0; i < node.children.length; i++) {
-    let child = node.children[i];
+  for (var i = 0; i < node.children.length; i++) {
+    var child = node.children[i];
 
     if (t.isJSXText(child)) {
       cleanJSXElementLiteralChild(child, elems);

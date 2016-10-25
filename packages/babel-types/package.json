@@ -1,11 +1,11 @@
 {
-  "name": "babel-types",
-  "version": "6.16.0",
-  "description": "Babel Types is a Lodash-esque utility library for AST nodes",
+  "name": "babel-types-mdx",
+  "version": "0.1.1",
+  "description": "Babel Types is a Lodash-esque utility library for AST nodes without the string join",
   "author": "Sebastian McKenzie <sebmck@gmail.com>",
   "homepage": "https://babeljs.io/",
   "license": "MIT",
-  "repository": "https://github.com/babel/babel/tree/master/packages/babel-types",
+  "repository": "https://github.com/9dots/babel-types",
   "main": "lib/index.js",
   "dependencies": {
     "babel-runtime": "^6.9.1",
