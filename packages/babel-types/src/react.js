@@ -37,10 +37,6 @@ function cleanJSXElementLiteralChild(child, args) {
     var isLastLine = _i === lines.length - 1;
     var isLastNonEmptyLine = _i === lastNonEmptyLine;
 
-    if (!isFirstLine) {
-      line = line.replace(/^[ ]+/, "");
-    }
-
     if (!isLastLine) {
       line = line.replace(/[ ]+$/, "");
     }
