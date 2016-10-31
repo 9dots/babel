@@ -43,6 +43,8 @@ function cleanJSXElementLiteralChild(child, args) {
 
     if (line) {
       str.push(line);
+    } else {
+      str.push('\n')
     }
   }
   if (str) {
